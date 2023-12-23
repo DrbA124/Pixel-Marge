@@ -6,7 +6,7 @@ from sc2.player import Bot, Human, Computer
 from sc2 import maps
 from PixelMarge import PixelMargeBot
 
-bot = Bot(Race.Terran, ())
+bot = Bot(Race.Terran, PixelMargeBot)
 human = Human(Race.Zerg, fullscreen=True)
 ai = Computer(Race.Zerg, Difficulty.VeryHard)
 
