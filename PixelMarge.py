@@ -26,10 +26,7 @@ class PixelMargeBot(TrainingBot):
         
         await self.TimeIt(self.PrepareForNextStep, "PrepForNext") 
 
-
-    
-    
-        
+ 
 
 
 def main():
