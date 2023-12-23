@@ -8,19 +8,26 @@ from sc2.unit import Unit
 from HelpfulAIs.GeneralUtilsAI import GeneralUtilsAI
 
 class BuildingOrderBot(GeneralUtilsAI):
-    def SelectBuildOrder(self):
-        BuildOrderOptions = [
+    def ExecuteBuildOrder(self, StepNumber):
+        self.GetBuildOrderArray()
+    
+    def GetBuildOrderArray(self):
+        if self.IsFirstStep:
+            BuildOrderOptions = [
+                """
+                13	  0:18	  Pylon	  
+                15	  0:37	  Gateway	  
+                16	  0:48	  Assimilator	  
+                19	  1:22	  Nexus	  
+                21	  1:37	  Cybernetics Core	  
+                21	  1:45	  Assimilator	  
+                22	  1:51	  Pylon	  
+                23	  2:15	  Adept, Warp Gate	  Scout with this
+                26	  2:30	  Pylon	  
+                27	  2:37	  Stargate
             """
-            13	  0:18	  Pylon	  
-            15	  0:37	  Gateway	  
-            16	  0:48	  Assimilator	  
-            19	  1:22	  Nexus	  
-            21	  1:37	  Cybernetics Core	  
-            21	  1:45	  Assimilator	  
-            22	  1:51	  Pylon	  
-            23	  2:15	  Adept, Warp Gate	  Scout with this
-            26	  2:30	  Pylon	  
-            27	  2:37	  Stargate
-        """]
+            ]
+            
+            print(BuildOrderOptions[0])
         
-        print(BuildOrderOptions[0])
+        else: return 
