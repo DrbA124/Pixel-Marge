@@ -11,12 +11,11 @@ from HelpfulAIs.UpgradeBot import UpgradeBot
 
 '''
 TODO:
-Cybercore.
 Find depowered buildings and repower. prioritise over building other pylons
 
 '''
 
-class MargeBot(TrainingBot, BuildingBot, UpgradeBot):
+class PixelMargeBot(TrainingBot, BuildingBot, UpgradeBot):
     async def on_step(self, iteration):
         if iteration == 0:
             await self.chat_send("GG EZ")
@@ -46,7 +45,7 @@ class MargeBot(TrainingBot, BuildingBot, UpgradeBot):
 def main():
     run_game(
         maps.get("AbyssalReefLE"),
-        [Bot(Race.Protoss, MargeBot(), name="Marge"),
+        [Bot(Race.Protoss, PixelMargeBot(), name="Marge"),
          Computer(Race.Protoss, Difficulty.Easy)],
         realtime=True,
     )
