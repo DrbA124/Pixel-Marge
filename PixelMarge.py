@@ -27,16 +27,3 @@ class PixelMargeBot(TrainingBot):
         await self.TimeIt(self.PrepareForNextStep, "PrepForNext") 
 
  
-
-
-def main():
-    run_game(
-        maps.get("AbyssalReefLE"),
-        [Bot(Race.Protoss, PixelMargeBot(), name="PixelMarge"),
-         Computer(Race.Protoss, Difficulty.Easy)],
-        realtime=True,
-    )
-
-
-if __name__ == "__main__":
-    main()
