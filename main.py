@@ -10,7 +10,7 @@ bot2 = Bot(Race.Terran, MMTM())
 human = Human(Race.Zerg, fullscreen=True)
 ai = Computer(Race.Zerg, Difficulty.VeryHard)
 
-#Adding comment!
+#Adding comment! And me too!
 
 def main():
     mapit = [
