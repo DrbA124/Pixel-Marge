@@ -4,7 +4,7 @@ from sc2.data import Race, Difficulty
 from sc2.main import run_game
 from sc2.player import Bot, Human, Computer
 from sc2 import maps
-from import
+
 bot = Bot(Race.Zerg, ZergBot())
 bot2 = Bot(Race.Terran, MMTM())
 human = Human(Race.Zerg, fullscreen=True)
