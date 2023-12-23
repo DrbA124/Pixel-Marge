@@ -122,7 +122,7 @@ class GeneralUtilsAI(BotAI):
     
     @property
     def UnbuiltOwnedExtractors(self):
-        return self.OwnedVespeneGeysers.filter(lambda Geyser: Geyser.name == "VespeneGeyser" and not self.gas_buildings.closer_than(1, Geyser))
+        return self.OwnedVespeneGeysers.filter(lambda Geyser: Geyser.name == "VespeneGeyser" and not self.structures.closer_than(1, Geyser))
     
     @property
     def NextGeyserToTake(self) -> Unit:     
