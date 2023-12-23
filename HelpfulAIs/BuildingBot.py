@@ -9,4 +9,5 @@ from HelpfulAIs.GeneralUtilsAI import GeneralUtilsAI
 
 #Make Pylons
 class BuildingBot(GeneralUtilsAI):
+    def BuildPylons(self):
 
