@@ -4,11 +4,12 @@ from sc2.data import Difficulty, Race
 from sc2.ids.unit_typeid import UnitTypeId
 from sc2.ids.ability_id import AbilityId
 from sc2.unit import Unit
+from random import randint
 
 from HelpfulAIs.GeneralUtilsAI import GeneralUtilsAI
 
 class BuildingOrderBot(GeneralUtilsAI):
-    def ExecuteBuildOrder(self, StepNumber):
+    def ExecuteBuildOrder(self):
         self.GetBuildOrderArray()
     
     def GetBuildOrderArray(self):
@@ -27,7 +28,25 @@ class BuildingOrderBot(GeneralUtilsAI):
                 27	  2:37	  Stargate
             """
             ]
+            ChosenBuildOrder = BuildOrderOptions[randint(0, len(BuildOrderOptions) -1)]
             
-            print(BuildOrderOptions[0])
+            BuildOrderList = []
+            
+            for Step in ChosenBuildOrder.splitlines():
+                Step = Step.strip()
+                Step = Step.split("\t")
+            
+                StepDict = {}
+
+                try:
+                    StepDict["Supply Count"] = Step[0]
+                    StepDict["Build"] = Step[2]
+                
+                    BuildOrderList.append(StepDict)
+                
+                except IndexError:
+                    pass
+                
+            self.BuildOrderList
         
-        else: return 
+        return self.BuildOrderArray
