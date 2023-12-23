@@ -5,7 +5,7 @@ from sc2.ids.unit_typeid import UnitTypeId
 from sc2.ids.ability_id import AbilityId
 from sc2.unit import Unit
 
-from GeneralUtilsAI import GeneralUtilsAI
+from HelpfulAIs.GeneralUtilsAI import GeneralUtilsAI
 
 #Make Pylons
 class BuildingBot(GeneralUtilsAI):
