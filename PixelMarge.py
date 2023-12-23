@@ -6,6 +6,7 @@ from sc2.main import run_game
 from sc2.player import Bot, Computer
 
 from HelpfulAIs import TrainingBot
+from HelpfulAIs import BuildingOrderBot
 
 '''
 TODO:
@@ -13,7 +14,7 @@ Find depowered buildings and repower. prioritise over building other pylons
 
 '''
 
-class PixelMargeBot(TrainingBot):
+class PixelMargeBot(TrainingBot, BuildingOrderBot):
     async def on_step(self, iteration):
         if iteration == 0:
             await self.chat_send("GG EZ")
