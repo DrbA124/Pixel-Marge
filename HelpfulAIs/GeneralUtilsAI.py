@@ -28,6 +28,7 @@ class GeneralUtilsAI(BotAI):
     @property
     def StepIsFirstStepOfSecond(self):       
         IsFirstStep = int(self.LastStepTime) < int(self.time)
+        #print(f"Last Step: {self.LastStepTime}, This Step: {self.time}")
         return IsFirstStep
         
     
