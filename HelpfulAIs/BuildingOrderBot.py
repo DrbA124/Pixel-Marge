@@ -5,9 +5,9 @@ from sc2.ids.unit_typeid import UnitTypeId
 from sc2.ids.ability_id import AbilityId
 from sc2.unit import Unit
 
-from HelpfulAIs.ProtossUtilsAI import ProtossUtilsAI
+from HelpfulAIs.GeneralUtilsAI import GeneralUtilsAI
 
-class BuildingOrderBot(ProtossUtilsAI):
+class BuildingOrderBot(GeneralUtilsAI):
     def SelectBuildOrder(self):
         BuildOrderOptions = [
             """
@@ -22,4 +22,5 @@ class BuildingOrderBot(ProtossUtilsAI):
             26	  2:30	  Pylon	  
             27	  2:37	  Stargate
         """]
+        
         print(BuildOrderOptions[0])
