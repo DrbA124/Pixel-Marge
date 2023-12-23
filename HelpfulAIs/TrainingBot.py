@@ -5,9 +5,9 @@ from sc2.ids.unit_typeid import UnitTypeId
 from sc2.ids.ability_id import AbilityId
 from sc2.unit import Unit
 
-from HelpfulAIs.ProtossUtilsAI import ProtossUtilsAI
+from HelpfulAIs.GeneralUtilsAI import GeneralUtilsAI
 
-class TrainingBot(ProtossUtilsAI):
+class TrainingBot(GeneralUtilsAI):
     @property
     def WorkerCount(self):
         BuildingWorkers = 0
