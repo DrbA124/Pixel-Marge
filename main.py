@@ -10,7 +10,6 @@ bot = Bot(Race.Protoss, PixelMargeBot())
 human = Human(Race.Zerg, fullscreen=True)
 ai = Computer(Race.Zerg, Difficulty.VeryHard)
 
-#Adding comment! And me too!
 
 def main():
     mapit = [

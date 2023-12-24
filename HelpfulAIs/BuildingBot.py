@@ -17,13 +17,14 @@ class BuildingBot(GeneralUtilsAI):
                 if PatchesCentre:
                     return self.AwayFrom(Base, PatchesCentre, Distance)
 
-    def BuildFirstPylon(self):
+    async def BuildFirstPylon(self):
         if (
             self.supply_workers == 15 and
             self.can_afford(UnitTypeId.PYLON) and
             self.structures(UnitTypeId.PYLON).amount == 0
         ):
-            await self.build(UnitTypeId.PYLON, location)
+            await self.build(UnitTypeId.PYLON, self.MainBase) #added some temp code here so I can finish some of my stuff - Dom
         elif (
-
+            None
         ):
+            pass
