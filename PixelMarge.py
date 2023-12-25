@@ -20,7 +20,7 @@ class PixelMargeBot(TrainingBot, BuildingOrderBot, BuildingBot):
         #await self.ControlWorkers()
         await self.TimeIt(self.distribute_workers, "distribute_workers")
         await self.TimeIt(self.TrainWorkers, "TrainWorkers")
-        await self.TimeIt(self.ExecuteBuildOrder, "ExecuteBuildOrder")
+        #await self.TimeIt(self.ExecuteBuildOrder, "ExecuteBuildOrder")
             
         self.GetDebugInfo(True, Iteration = iteration)
         

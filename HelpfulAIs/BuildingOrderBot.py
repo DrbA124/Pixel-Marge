@@ -45,7 +45,7 @@ class BuildingOrderBot(GeneralUtilsAI):
             
             elif Step["Build Type"] == "Unit":
                 print("Attempting to build " + str(Step["What To Build"]))
-                await self.build(Step["What To Build"].value, self.MainBase)
+                await self.build(Step["What To Build"], self.MainBase)
         
 def StandardiseBuildsThatUseXs(BuildOrder: list[dict]) -> list[dict]:
     for StepIndex, Step in enumerate(BuildOrder):
