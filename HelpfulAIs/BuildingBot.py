@@ -8,8 +8,13 @@ from sc2.position import Point2
 
 from HelpfulAIs.GeneralUtilsAI import GeneralUtilsAI
 
-#Make Pylons
 class BuildingBot(GeneralUtilsAI):
+    async def BuildUnit(self, DemandedUnit: UnitTypeId) -> None: # This will be called by the BuildOrderBot when it wants a certain unit (including structures)
+        
+        await self.build(DemandedUnit, self.MainBase) # This is temporary and should be replaced!
+        #Plan is to have "if the demanded unit's a pylon, do this, if it's a gate, do that, if it's a stargate etc etc"
+        
+    
     def FindPylonLocations(self, Base: Unit | Point2, Distance: int = 6):
         if self.Bases:
             for Base in self.Bases:

@@ -17,13 +17,16 @@ class BuildingOrderBot(GeneralUtilsAI):
     async def ExecuteBuildOrder(self):
         if self.IsFirstStep:
             self.UsingBuildOrder = True
+            self._BuildOrderStep = 0
             
             try:
                 self.BuildOrder = GetBuildOrderArray()
+                self.BuildOrder = RenameMisalignedBuilds(self.BuildOrder) # Some things are misnamed and need to be aligned to our enum
                 self.BuildOrder = SplitOutMultipleBuildSteps(self.BuildOrder)
                 self.BuildOrder = SetChronoBool(self.BuildOrder)
                 self.BuildOrder = StandardiseBuildsThatUseXs(self.BuildOrder) #Some steps show things like "Stargate x2". Make that two entries
                 self.BuildOrder = TranslateBuildOrderIDs(self.BuildOrder)
+                self.BuildOrder = AddCountDemanded(self.BuildOrder)
                 
             except InvalidBuildOrder:
                 self.UsingBuildOrder = False
@@ -32,20 +35,43 @@ class BuildingOrderBot(GeneralUtilsAI):
             
         if self.UsingBuildOrder:
             await self.ExecuteNextStepOfBuildOrder()
-            
+    
     async def ExecuteNextStepOfBuildOrder(self) -> None: 
-        for Step in self.BuildOrder:
-            if not Step["Supply Count"] >= self.supply_used:
-                continue
+        Step = self.BuildOrder[self._BuildOrderStep]
+        DemandedBuilding = Step["What To Build"]
+        NumberDemanded = Step["Number Demanded To Complete Step"]
+        MinimumSupplyCountToBuild = Step["Supply Count"]
+        
+        if self.supply_used < MinimumSupplyCountToBuild:
+            return
+        
+        elif self.CountUnit(DemandedBuilding) >= NumberDemanded:
+            self._BuildOrderStep += 1
+            return
+        
+        elif Step["Build Type"] == "Unit":
+            await self.BuildUnit(DemandedBuilding)
             
-            elif self.Has(Step["What To Build"]): #Currently this doesn't work - Has only checks for structures not upgrades
-                                                  #Also doesn't consider that builds might want multiple structures of the same type
-                continue
+        elif Step["Build Type"] == "Upgrade":
+            await self.GetUpgrade(DemandedBuilding)
+            
+    
+
+def AddCountDemanded(BuildOrder: list[dict]) -> list[dict]:
+    for StepIndex, Step in enumerate(BuildOrder):
+        BuildDemanded = Step["What To Build"]
+        NumberDemanded = 1
+        
+        for PreviousStepIndexToCheck in range(0, StepIndex):
+            PreviousStepToCheck = BuildOrder[PreviousStepIndexToCheck]
+            PreviousStepToCheckBuilding = PreviousStepToCheck["What To Build"]
+            
+            if PreviousStepToCheckBuilding == BuildDemanded:
+                NumberDemanded += 1
                 
-            
-            elif Step["Build Type"] == "Unit":
-                print("Attempting to build " + str(Step["What To Build"]))
-                await self.build(Step["What To Build"], self.MainBase)
+        Step["Number Demanded To Complete Step"] = NumberDemanded
+        
+    return BuildOrder
         
 def StandardiseBuildsThatUseXs(BuildOrder: list[dict]) -> list[dict]:
     for StepIndex, Step in enumerate(BuildOrder):
@@ -129,6 +155,14 @@ def GetBuildOrderArray():
 
     return BuildOrderList
 
+def RenameMisalignedBuilds(BuildOrder: list[dict]) -> list[dict]:
+    for Step in BuildOrder:
+        if Step["What To Build"].upper() == "Warp Gate".upper():
+            Step["What To Build"] = "Warp Gate Research"
+            
+    return BuildOrder
+        
+
 def SelectBuildOrder():
     BuildOrderOptions = [
         """13	  0:18	  Pylon	  
@@ -139,7 +173,7 @@ def SelectBuildOrder():
            21	  1:45	  Assimilator	  
            22	  1:51	  Pylon	  
            23	  2:15	  Adept
-           23	  2:15	  Warp Gate
+           23	  2:15	  Warp Gate Research
            26	  2:30	  Pylon	  
            27	  2:37	  Stargate""",
            
@@ -150,7 +184,7 @@ def SelectBuildOrder():
            21	  1:37	  Cybernetics Core	  
            21	  1:45	  Assimilator	  
            22	  1:51	  Pylon	  
-           23	  2:15	  Adept, Warp Gate
+           23	  2:15	  Adept, Warp Gate Research
            26	  2:30	  Pylon x2
            27	  2:37	  Stargate x2"""
            ]
